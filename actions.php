@@ -81,7 +81,7 @@ try {
                 'fim_ey'          => $_POST['fim_ey'] ?: null,
                 'motivo'          => trim($_POST['motivo'] ?? ''),
                 'status'          => $_POST['status'] ?? 'Ativo',
-                'desalocado'      => $_POST['desalocado'] ?? 'Não',
+                'alocado'         => $_POST['alocado'] ?? 'Sim',
             ];
 
             if (empty($data['nome'])) {
@@ -92,15 +92,15 @@ try {
                 $sql = "UPDATE funcionarios SET nome=:nome, gui=:gui, equipe_id=:equipe_id, lider=:lider, gerente=:gerente,
                         funcao_ey=:funcao_ey, nivel_ey=:nivel_ey, funcao_bb=:funcao_bb, nivel_bb=:nivel_bb,
                         inicio_ey=:inicio_ey, inicio_bb=:inicio_bb, fim_bb=:fim_bb, fim_ey=:fim_ey,
-                        motivo=:motivo, status=:status, desalocado=:desalocado WHERE id=:id";
+                        motivo=:motivo, status=:status, alocado=:alocado WHERE id=:id";
                 $data['id'] = $id;
                 $db->prepare($sql)->execute($data);
                 $msg = "Funcionário atualizado!";
             } else {
                 $sql = "INSERT INTO funcionarios (nome, gui, equipe_id, lider, gerente, funcao_ey, nivel_ey,
-                        funcao_bb, nivel_bb, inicio_ey, inicio_bb, fim_bb, fim_ey, motivo, status, desalocado)
+                        funcao_bb, nivel_bb, inicio_ey, inicio_bb, fim_bb, fim_ey, motivo, status, alocado)
                         VALUES (:nome, :gui, :equipe_id, :lider, :gerente, :funcao_ey, :nivel_ey,
-                        :funcao_bb, :nivel_bb, :inicio_ey, :inicio_bb, :fim_bb, :fim_ey, :motivo, :status, :desalocado)";
+                        :funcao_bb, :nivel_bb, :inicio_ey, :inicio_bb, :fim_bb, :fim_ey, :motivo, :status, :alocado)";
                 $db->prepare($sql)->execute($data);
                 $msg = "Funcionário cadastrado!";
             }
@@ -116,7 +116,7 @@ try {
         case 'desalocar':
             $id = intval($_POST['id']);
             $data = $_POST['data'];
-            $db->prepare("UPDATE funcionarios SET desalocado='Sim', data_desalocacao=? WHERE id=?")
+            $db->prepare("UPDATE funcionarios SET alocado='Não', data_desalocacao=? WHERE id=?")
                ->execute([$data, $id]);
             redirect('funcionarios.php', 'Funcionário desalocado!');
             break;

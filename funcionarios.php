@@ -297,7 +297,7 @@ renderHeader('Funcionários', 'funcionarios');
                     <td>
                         <div class="table-actions">
                             <a href="funcionarios.php?edit=<?= $f['id'] ?>" class="btn btn-ghost btn-sm">✎</a>
-                            <?php if ($f['alocado'] !== 'Sim'): ?>
+                            <?php if ($f['alocado'] === 'Sim'): ?>
                             <button class="btn btn-warning btn-sm" onclick="modalDesalocar(<?= $f['id'] ?>)" title="Desalocar">⊖</button>
                             <?php endif; ?>
                             <?php if ($f['status'] === 'Ativo'): ?>

@@ -55,7 +55,7 @@ function initDB($db) {
             fim_ey           DATE,
             motivo           TEXT,
             status           VARCHAR(20) DEFAULT 'Ativo',
-            desalocado       VARCHAR(10) DEFAULT 'Não',
+            alocado          VARCHAR(10) DEFAULT 'Sim',
             data_desalocacao DATE,
             data_desligamento DATE,
             created_at       DATETIME DEFAULT CURRENT_TIMESTAMP,
