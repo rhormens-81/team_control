@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['xlsx'])) {
                 'funcao_bb'  => ['função no bb','funcao no bb','função bb'],
                 'nivel_bb'   => ['nível bb','nivel bb'],
                 'status'     => ['status'],
-                'desalocado' => ['tipo recurso alocado','desalocado'],
+                'alocado'    => ['tipo recurso alocado','alocado','desalocado'],
                 'data_desalocacao' => ['data desalocação','data desalocacao'],
                 'motivo'     => ['motivo'],
                 'email'      => ['e-mail','email'],
@@ -202,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['xlsx'])) {
                 $statusRaw = $mapped['status'] ? trim($row[$mapped['status']] ?? '') : 'Ativo';
                 $status    = in_array($statusRaw, ['Ativo','Inativo']) ? $statusRaw : 'Ativo';
 
-                $desalRaw = $mapped['desalocado'] ? strtolower(trim($row[$mapped['desalocado']] ?? '')) : '';
-                $desalocado = ($desalRaw === 'sim' || $desalRaw === 'desalocado' || $desalRaw === 'não alocado') ? 'Sim' : 'Não';
+                $desalRaw = $mapped['alocado'] ? strtolower(trim($row[$mapped['alocado']] ?? '')) : '';
+                $alocado = ($desalRaw === 'sim' || $desalRaw === 'alocado' || $desalRaw === 'não alocado') ? 'Sim' : 'Não';
 
                 $data = [
                     'nome'           => $nome,
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['xlsx'])) {
                     'fim_ey'         => null,
                     'motivo'         => $mapped['motivo']   ? trim($row[$mapped['motivo']]   ?? '') : '',
                     'status'         => $status,
-                    'desalocado'     => $desalocado,
+                    'alocado'     => $alocado,
                     'data_desalocacao'=> parseDate($mapped['data_desalocacao'] ? $row[$mapped['data_desalocacao']] ?? '' : ''),
                 ];
 
@@ -238,16 +238,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['xlsx'])) {
                     $sql = "UPDATE funcionarios SET nome=:nome, equipe_id=:equipe_id, lider=:lider, gerente=:gerente,
                             funcao_ey=:funcao_ey, nivel_ey=:nivel_ey, funcao_bb=:funcao_bb, nivel_bb=:nivel_bb,
                             inicio_ey=:inicio_ey, inicio_bb=:inicio_bb, fim_bb=:fim_bb, fim_ey=:fim_ey,
-                            motivo=:motivo, status=:status, desalocado=:desalocado, data_desalocacao=:data_desalocacao
+                            motivo=:motivo, status=:status, alocado=:alocado, data_desalocacao=:data_desalocacao
                             WHERE id=:id";
                     $data['id'] = $existing;
                     unset($data['gui']);
                     $db->prepare($sql)->execute($data);
                 } else {
                     $sql = "INSERT INTO funcionarios (nome, gui, equipe_id, lider, gerente, funcao_ey, nivel_ey,
-                            funcao_bb, nivel_bb, inicio_ey, inicio_bb, fim_bb, fim_ey, motivo, status, desalocado, data_desalocacao)
+                            funcao_bb, nivel_bb, inicio_ey, inicio_bb, fim_bb, fim_ey, motivo, status, alocado, data_desalocacao)
                             VALUES (:nome,:gui,:equipe_id,:lider,:gerente,:funcao_ey,:nivel_ey,
-                            :funcao_bb,:nivel_bb,:inicio_ey,:inicio_bb,:fim_bb,:fim_ey,:motivo,:status,:desalocado,:data_desalocacao)";
+                            :funcao_bb,:nivel_bb,:inicio_ey,:inicio_bb,:fim_bb,:fim_ey,:motivo,:status,:alocado,:data_desalocacao)";
                     $db->prepare($sql)->execute($data);
                 }
                 $imported++;
@@ -360,6 +360,7 @@ renderHeader('Importar Excel', 'funcionarios');
             'Função no BB'       => 'Função no Banco do Brasil',
             'Nível BB'           => 'Junior / Pleno / Senior',
             'Status'             => 'Ativo ou Inativo',
+            'Alocado'            => 'Sim ou Não',
             'Data Desalocação'   => 'Data de desalocação (se houver)',
             'Motivo'             => 'Motivo de desligamento/desalocação',
         ];
