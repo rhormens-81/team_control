@@ -15,7 +15,7 @@ $metaEq   = $settings['meta_equipes'] ?? 15;
 // Stats
 $totalFunc  = $db->query("SELECT COUNT(*) FROM funcionarios WHERE status='Ativo'")->fetchColumn();
 $totalEq    = $db->query("SELECT COUNT(*) FROM equipes")->fetchColumn();
-$totalDesal = $db->query("SELECT COUNT(*) FROM funcionarios WHERE alocado='Não' AND status='Ativo'")->fetchColumn();
+$totalDesal = $db->query("SELECT COUNT(*) FROM funcionarios WHERE alocado='Sim' AND status='Ativo'")->fetchColumn();
 $totalInativ = $db->query("SELECT COUNT(*) FROM funcionarios WHERE status='Inativo'")->fetchColumn();
 
 // Chart: por funcao_ey
