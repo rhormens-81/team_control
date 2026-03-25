@@ -267,7 +267,10 @@ renderHeader('Importar Excel', 'funcionarios');
 
 <div class="page-header">
     <h2>Importar Funcionários via Excel / CSV</h2>
-    <a href="funcionarios.php" class="btn btn-ghost">← Voltar</a>
+    <div style="display:flex; gap:10px">
+        <a href="importar_equipes.php" class="btn btn-ghost">📂 Importar Equipes</a>
+        <a href="funcionarios.php" class="btn btn-ghost">← Voltar</a>
+    </div>
 </div>
 
 <?php if ($result): ?>
