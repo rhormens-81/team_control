@@ -28,7 +28,7 @@ $nivelRows = $db->query("SELECT nivel_ey, COUNT(*) as total FROM funcionarios WH
 $equipeRows = $db->query("
     SELECT e.nome, COUNT(f.id) as total 
     FROM equipes e 
-    LEFT JOIN funcionarios f ON f.equipe_id = e.id AND f.status='Ativo'
+    LEFT JOIN funcionarios f ON f.equipe_id = e.id AND f.status='Ativo' AND f.alocado='Sim'
     GROUP BY e.id, e.nome 
     ORDER BY total DESC
 ")->fetchAll(PDO::FETCH_ASSOC);
