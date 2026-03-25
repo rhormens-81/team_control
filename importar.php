@@ -322,7 +322,7 @@ renderHeader('Importar Excel', 'funcionarios');
                     Arraste o arquivo aqui ou clique para selecionar
                 </div>
                 <div style="color:var(--text3); font-size:12px">Suporta .xlsx e .csv</div>
-                <div id="file-name" style="margin-top:12px; color:var(--accent); font-weight:600; font-size:13px"></div>
+                <div id="file-name" style="margin-top:12px; color:var(--text); font-weight:600; font-size:13px"></div>
             </div>
 
             <input type="file" id="file-input" name="xlsx" accept=".xlsx,.csv" style="display:none" onchange="showFileName(this)">
@@ -342,7 +342,7 @@ renderHeader('Importar Excel', 'funcionarios');
     <div class="form-section-title">📋 Colunas reconhecidas automaticamente</div>
     <p style="color:var(--text2); font-size:13px; margin-bottom:16px">
         O sistema detecta as colunas pelo nome do cabeçalho (primeira linha). Não precisa estar em ordem exata.
-        Funcionários com mesmo <strong style="color:var(--accent)">GUI</strong> serão atualizados automaticamente.
+        Funcionários com mesmo <strong>GUI</strong> serão atualizados automaticamente.
         Equipes não cadastradas serão criadas automaticamente.
     </p>
     <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:8px">
@@ -366,7 +366,7 @@ renderHeader('Importar Excel', 'funcionarios');
         ];
         foreach ($cols as $col => $desc): ?>
         <div style="background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:3px">
-            <div style="font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--accent)"><?= $col ?></div>
+            <div style="font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:var(--text)"><?= $col ?></div>
             <div style="color:var(--text3); font-size:11px"><?= $desc ?></div>
         </div>
         <?php endforeach; ?>

@@ -110,6 +110,14 @@ function filterTable(inputId, tableId) {
     const val = document.getElementById(inputId).value.toLowerCase();
     const rows = document.querySelectorAll(`#${tableId} tbody tr:not(.team-row-header)`);
     rows.forEach(r => {
-        r.style.display = r.textContent.toLowerCase().includes(val) ? '' : 'none';
+        let content = r.textContent.toLowerCase();
+        // Inclui títulos para busca de forma segura
+        const itemsWithTitle = r.querySelectorAll('[title]');
+        itemsWithTitle.forEach(el => {
+            const t = el.getAttribute('title');
+            if (t) content += ' ' + t.toLowerCase();
+        });
+        
+        r.style.display = content.includes(val) ? '' : 'none';
     });
 }

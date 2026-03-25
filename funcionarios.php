@@ -127,7 +127,7 @@ renderHeader('Funcionários', 'funcionarios');
 
         <!-- EY -->
         <div style="border-top:1px solid var(--border);padding-top:20px;margin-bottom:20px">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:14px">EY</div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin-bottom:14px">EY</div>
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">Função na EY</label>
