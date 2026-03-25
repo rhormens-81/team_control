@@ -233,7 +233,9 @@ function makeChart(id, type, labels, data, opts = {}) {
     });
 }
 
-makeChart('chartFuncaoEY', 'doughnut', <?= $funcaoLabels ?>, <?= $funcaoData ?>);
+makeChart('chartFuncaoEY', 'bar', <?= $funcaoLabels ?>, <?= $funcaoData ?>, {
+    chartOptions: { plugins: { legend: { display: false } } }
+});
 makeChart('chartNivelEY', 'doughnut', <?= $nivelLabels ?>, <?= $nivelData ?>);
 makeChart('chartEquipe', 'bar', <?= $eqLabels ?>, <?= $eqData ?>, {
     dataset: { backgroundColor: '#f0c040', borderColor: '#0a0c10', borderWidth: 2 },
