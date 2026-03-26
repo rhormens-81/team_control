@@ -200,13 +200,14 @@ $eqData       = json_encode(array_column($equipeRows, 'total'));
 </div>
 
 <script>
-const COLORS = ['#f0c040','#4da6ff','#30d68a','#ff4d6a','#ffa040','#b488ff','#40e0d0','#ff88cc','#88ffaa','#ffcc88'];
+const COLORS = ['#ffe600', '#333333', '#999999', '#cccccc'];
 
 function makeChart(id, type, labels, data, opts = {}) {
     const ctx = document.getElementById(id)?.getContext('2d');
     if (!ctx) return;
     return new Chart(ctx, {
         type,
+        plugins: [ChartDataLabels],
         data: {
             labels,
             datasets: [{
@@ -222,11 +223,27 @@ function makeChart(id, type, labels, data, opts = {}) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { color: '#8b90a0', font: { size: 12 } } }
+                legend: { labels: { color: '#8b90a0', font: { size: 12 } } },
+                datalabels: {
+                    color: (context) => {
+                        const bg = context.dataset.backgroundColor;
+                        const c = Array.isArray(bg) ? bg[context.dataIndex] : bg;
+                        return (c === '#ffe600' || c === '#cccccc') ? '#000' : '#fff';
+                    },
+                    font: { weight: 'bold', size: 11 },
+                    anchor: type === 'bar' ? 'end' : 'center',
+                    align: type === 'bar' ? 'top' : 'center',
+                    offset: 4,
+                    display: (context) => context.dataset.data[context.dataIndex] > 0
+                }
             },
             scales: type === 'bar' ? {
                 x: { ticks: { color: '#8b90a0' }, grid: { color: '#1a1d25' } },
-                y: { ticks: { color: '#8b90a0', stepSize: 1 }, grid: { color: '#1a1d25' } }
+                y: { 
+                    ticks: { color: '#8b90a0', stepSize: 1 }, 
+                    grid: { color: '#1a1d25' },
+                    suggestedMax: Math.max(...data, 0) + 1
+                }
             } : undefined,
             ...opts.chartOptions
         }
@@ -238,7 +255,7 @@ makeChart('chartFuncaoEY', 'bar', <?= $funcaoLabels ?>, <?= $funcaoData ?>, {
 });
 makeChart('chartNivelEY', 'doughnut', <?= $nivelLabels ?>, <?= $nivelData ?>);
 makeChart('chartEquipe', 'bar', <?= $eqLabels ?>, <?= $eqData ?>, {
-    dataset: { backgroundColor: '#f0c040', borderColor: '#0a0c10', borderWidth: 2 },
+    dataset: { backgroundColor: '#ffe600', borderColor: '#0a0c10', borderWidth: 2 },
     chartOptions: { plugins: { legend: { display: false } } }
 });
 </script>
